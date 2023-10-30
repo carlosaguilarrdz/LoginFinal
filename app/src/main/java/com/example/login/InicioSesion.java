@@ -18,8 +18,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.auth.FirebaseAuthCredentialsProvider;
 
 public class InicioSesion extends AppCompatActivity {
-
-
     EditText correo, contraseña;
     FirebaseAuth mAuth;
 
@@ -29,8 +27,10 @@ public class InicioSesion extends AppCompatActivity {
         setContentView(R.layout.activity_inicio_sesion);
 
         Button btn2 = findViewById(R.id.btn2);
-        correo = findViewById(R.id.correo_login);
-        contraseña = findViewById(R.id.contraseña_login);
+        Button back = findViewById(R.id.button);
+
+        correo = findViewById(R.id.correo);
+        contraseña = findViewById(R.id.contraseña);
         mAuth = FirebaseAuth.getInstance();
 
         btn2.setOnClickListener(new View.OnClickListener() {
@@ -41,14 +41,20 @@ public class InicioSesion extends AppCompatActivity {
                 String contraseña_login = contraseña.getText().toString().trim();
 
 
-                if(correo_login.isEmpty() && contraseña_login.isEmpty()) {
+                if(correo_login.isEmpty() || contraseña_login.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Ingresar datos correctamente", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     loginUser(correo_login, contraseña_login);
                 }
-                Intent intento = new Intent(getApplicationContext(), MenuDashboard.class);
-                startActivity(intento);
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intento2 = new Intent(getApplicationContext(), LoginLayout.class);
+                startActivity(intento2);
             }
         });
     }
@@ -58,7 +64,6 @@ public class InicioSesion extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
-                    finish();
                     Intent intento = new Intent(getApplicationContext(), MenuDashboard.class);
                     startActivity(intento);
                     Toast.makeText(getApplicationContext(), "Bienvenido", Toast.LENGTH_SHORT).show();

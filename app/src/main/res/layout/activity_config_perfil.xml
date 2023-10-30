@@ -10,7 +10,7 @@
     <LinearLayout
         android:id="@+id/fondofinal"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="20dp"
         android:layout_weight="0.25"
         android:background="@drawable/fondo_final"
         android:orientation="horizontal"
@@ -58,66 +58,58 @@
         <ImageView
             android:id="@+id/FotoPerfil"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="194dp"
             android:layout_marginBottom="10dp"
             app:srcCompat="@drawable/foto_perfil"
             tools:visibility="visible" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Editar"
-            android:textAlignment="center" />
 
         <EditText
+            android:id="@+id/nombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tamia Polo"
+            android:text=""
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textStyle="bold"
             />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Editar"
-            android:textAlignment="center" />
-
         <EditText
+            android:id="@+id/matricula"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="00436080"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textStyle="bold" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Editar"
-            android:textAlignment="center" />
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="+52 9933446376"
+            android:text=""
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textStyle="bold" />
 
-        <TextView
+        <EditText
+            android:id="@+id/telefono"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Editar"
-            android:textAlignment="center" />
+            android:text=""
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textStyle="bold" />
 
         <EditText
+            android:id="@+id/correo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="tamia.polo@anahuac.mx"
+            android:text=""
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textStyle="bold"
             android:layout_marginBottom="10dp"/>
+
+        <EditText
+            android:id="@+id/contraseña"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textStyle="bold" />
 
         <!-- Botones -->
         <Button

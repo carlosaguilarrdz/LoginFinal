@@ -10,8 +10,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -23,6 +27,7 @@ public class crearCuenta extends AppCompatActivity {
     //Para bd
     EditText nombre, matricula, correo, telefono, contraseña;
     private FirebaseFirestore mfirestore;
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +42,7 @@ public class crearCuenta extends AppCompatActivity {
         correo = findViewById(R.id.correo);
         telefono = findViewById(R.id.telefono);
         contraseña = findViewById(R.id.contraseña);
+
         mfirestore = FirebaseFirestore.getInstance();
 
         btn2.setOnClickListener(new View.OnClickListener() {
@@ -66,27 +72,40 @@ public class crearCuenta extends AppCompatActivity {
 
     }
 
-    private void postAlumno(String nombrea, String matriculaa, String correoa, String telefonoa, String contraseñaa) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("nombre", nombrea);
-        map.put("matricula", matriculaa);
-        map.put("correo", correoa);
-        map.put("telefono", telefonoa);
-        map.put("contraseña", contraseñaa);
-
-        mfirestore.collection("usuarios").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+    private void postAlumno(String nombre, String matricula, String correo, String telefono, String contraseña) {
+        mAuth.createUserWithEmailAndPassword(correo, contraseña).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
-            public void onSuccess(DocumentReference documentReference) {
-                Intent intento = new Intent(getApplicationContext(), MenuDashboard.class);
-                startActivity(intento);
-                Toast.makeText(getApplicationContext(), "Creado exitosamente", Toast.LENGTH_SHORT).show();
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                String id = mAuth.getCurrentUser().getUid();
+                Map<String, Object> map = new HashMap<>();
+                map.put("id", id);
+                map.put("nombre", nombre);
+                map.put("matricula", matricula);
+                map.put("correo", correo);
+                map.put("telefono", telefono);
+                map.put("contraseña", contraseña);
+
+                mfirestore.collection("usuarios").document(id).set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Intent intento = new Intent(getApplicationContext(), MenuDashboard.class);
+                        startActivity(intento);
+                        Toast.makeText(getApplicationContext(), "Usuario registrado con éxito", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(), "Error al guardar", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Error al registrar", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
 
 }

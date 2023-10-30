@@ -61,7 +61,7 @@
             android:textSize="18dp" />
 
         <EditText
-            android:id="@+id/correo_login"
+            android:id="@+id/correo"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginStart="32dp"
@@ -76,7 +76,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
         <EditText
-            android:id="@+id/contraseña_login"
+            android:id="@+id/contraseña"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginStart="32dp"

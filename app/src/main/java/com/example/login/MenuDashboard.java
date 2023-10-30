@@ -23,7 +23,7 @@ public class MenuDashboard extends AppCompatActivity {
         nacho.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intento = new Intent(getApplicationContext(), informacion.class);
+                Intent intento = new Intent(getApplicationContext(), configPerfil.class);
                 startActivity(intento);
             }
         });
