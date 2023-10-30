@@ -48,7 +48,7 @@ public class crearCuenta extends AppCompatActivity {
                 String telefonoa = telefono.getText().toString().trim();
                 String contraseñaa= contraseña.getText().toString().trim();
 
-                if(nombrea.isEmpty() && matriculaa.isEmpty() && correoa.isEmpty() && telefonoa.isEmpty() && contraseñaa.isEmpty()) {
+                if(nombrea.isEmpty() || matriculaa.isEmpty() || correoa.isEmpty() || telefonoa.isEmpty() || contraseñaa.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Ingresar datos correctamentee", Toast.LENGTH_SHORT).show();
                 } else {
                     postAlumno(nombrea, matriculaa, correoa, telefonoa, contraseñaa);
@@ -68,7 +68,7 @@ public class crearCuenta extends AppCompatActivity {
 
     private void postAlumno(String nombrea, String matriculaa, String correoa, String telefonoa, String contraseñaa) {
         Map<String, Object> map = new HashMap<>();
-        map.put("name", nombrea);
+        map.put("nombre", nombrea);
         map.put("matricula", matriculaa);
         map.put("correo", correoa);
         map.put("telefono", telefonoa);
@@ -77,7 +77,6 @@ public class crearCuenta extends AppCompatActivity {
         mfirestore.collection("usuarios").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
-                finish();
                 Intent intento = new Intent(getApplicationContext(), MenuDashboard.class);
                 startActivity(intento);
                 Toast.makeText(getApplicationContext(), "Creado exitosamente", Toast.LENGTH_SHORT).show();
@@ -85,7 +84,7 @@ public class crearCuenta extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getApplicationContext(), "Error al ingresar datos", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
