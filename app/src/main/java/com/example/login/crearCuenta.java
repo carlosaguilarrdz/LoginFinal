@@ -44,18 +44,19 @@ public class crearCuenta extends AppCompatActivity {
         contraseña = findViewById(R.id.contraseña);
 
         mfirestore = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String nombrea = nombre.getText().toString().trim();
-                String matriculaa = matricula.getText().toString().trim();
-                String correoa = correo.getText().toString().trim();
-                String telefonoa = telefono.getText().toString().trim();
-                String contraseñaa= contraseña.getText().toString().trim();
+                String nombrea = String.valueOf(nombre.getText());
+                String matriculaa = String.valueOf(matricula.getText());
+                String correoa = String.valueOf(correo.getText());
+                String telefonoa = String.valueOf(telefono.getText());
+                String contraseñaa= String.valueOf(contraseña.getText());
 
                 if(nombrea.isEmpty() || matriculaa.isEmpty() || correoa.isEmpty() || telefonoa.isEmpty() || contraseñaa.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Ingresar datos correctamentee", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Ingresar datos correctamente", Toast.LENGTH_SHORT).show();
                 } else {
                     postAlumno(nombrea, matriculaa, correoa, telefonoa, contraseñaa);
                 }
@@ -73,38 +74,37 @@ public class crearCuenta extends AppCompatActivity {
     }
 
     private void postAlumno(String nombre, String matricula, String correo, String telefono, String contraseña) {
-        mAuth.createUserWithEmailAndPassword(correo, contraseña).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                String id = mAuth.getCurrentUser().getUid();
-                Map<String, Object> map = new HashMap<>();
-                map.put("id", id);
-                map.put("nombre", nombre);
-                map.put("matricula", matricula);
-                map.put("correo", correo);
-                map.put("telefono", telefono);
-                map.put("contraseña", contraseña);
-
-                mfirestore.collection("usuarios").document(id).set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+        mAuth.createUserWithEmailAndPassword(correo, contraseña)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
-                    public void onSuccess(Void unused) {
-                        Intent intento = new Intent(getApplicationContext(), MenuDashboard.class);
-                        startActivity(intento);
-                        Toast.makeText(getApplicationContext(), "Usuario registrado con éxito", Toast.LENGTH_SHORT).show();
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful())
+                        {
+                            Intent intento = new Intent(getApplicationContext(), InicioSesion.class);
+                            startActivity(intento);
+
+                            String uid = mAuth.getCurrentUser().getUid();
+                            DocumentReference docRef = mfirestore.collection("usuarios").document(uid);
+                            Map<String, Object> map = new HashMap<>();
+                            map.put("id", uid);
+                            map.put("nombre", nombre);
+                            map.put("matricula", matricula);
+                            map.put("correo", correo);
+                            map.put("telefono", telefono);
+                            map.put("contraseña", contraseña);
+
+                            docRef.set(map);
+                            Toast.makeText(getApplicationContext(), "Usuario registrado con éxito", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getApplicationContext(), "Error al guardar", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getApplicationContext(), "Error al registrar", Toast.LENGTH_SHORT).show();
-            }
-        });
+
     }
 
 

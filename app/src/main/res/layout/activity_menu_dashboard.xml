@@ -41,132 +41,35 @@
 
     </LinearLayout>
 
-    <!-- Entradas -->
+    <!-- home -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="vertical">
-
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="40dp"
-            android:text="Entradas"
+            android:text="Platillos"
             android:textSize="26dp"
             android:textStyle="bold" />
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <ImageButton
-                android:id="@+id/img1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#00FFFFFF"
-                app:srcCompat="@drawable/nachos_img"
-                android:contentDescription="aa"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1.25"
-                android:orientation="horizontal"
-                android:paddingHorizontal="40dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Nachos" />
-
-                <Button
-                    android:id="@+id/nacho"
-                    android:layout_width="142dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="140dp"
-                    android:backgroundTint="#00235E"
-                    android:text="+ Información" />
-
-            </LinearLayout>
-        </LinearLayout>
-
-        <!-- plato #2 -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <ImageButton
-                android:id="@+id/img2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#00FFFFFF"
-                app:srcCompat="@drawable/ensalada_img"
-                android:contentDescription="aaa"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1.25"
-                android:orientation="horizontal"
-                android:paddingHorizontal="40dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Ensalada César" />
-
-                <Button
-                    android:layout_width="142dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="90dp"
-                    android:backgroundTint="#00235E"
-                    android:text="+ Información" />
-
-            </LinearLayout>
-        </LinearLayout>
-
-        <!-- plato #3 -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <ImageButton
-                android:id="@+id/img3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#00FFFFFF"
-                app:srcCompat="@drawable/papas"
-                android:contentDescription="aaa"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1.25"
-                android:orientation="horizontal"
-                android:paddingHorizontal="40dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Papas a la francesa" />
-
-                <Button
-                    android:layout_width="142dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="65dp"
-                    android:backgroundTint="#00235E"
-                    android:text="+ Información" />
-
-            </LinearLayout>
-        </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/platillos_lista"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </ScrollView>
     </LinearLayout>
 
-    <!-- home -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

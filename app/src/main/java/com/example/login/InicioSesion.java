@@ -37,8 +37,8 @@ public class InicioSesion extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                String correo_login = correo.getText().toString().trim();
-                String contraseña_login = contraseña.getText().toString().trim();
+                String correo_login = String.valueOf(correo.getText());
+                String contraseña_login =   String.valueOf(contraseña.getText());
 
 
                 if(correo_login.isEmpty() || contraseña_login.isEmpty()) {
@@ -60,22 +60,21 @@ public class InicioSesion extends AppCompatActivity {
     }
 
     private void loginUser(String correoLogin, String contraseñaLogin) {
-        mAuth.signInWithEmailAndPassword(correoLogin, contraseñaLogin).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()) {
-                    Intent intento = new Intent(getApplicationContext(), MenuDashboard.class);
-                    startActivity(intento);
-                    Toast.makeText(getApplicationContext(), "Bienvenido", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getApplicationContext(), "Error al iniciar sesión", Toast.LENGTH_SHORT).show();
-            }
-        });
+        mAuth.signInWithEmailAndPassword(correoLogin, contraseñaLogin)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful())
+                        {
+                            Toast.makeText(getApplicationContext(), "Login con éxito", Toast.LENGTH_SHORT).show();
+                            Intent intento = new Intent(getApplicationContext(), MenuDashboard.class);
+                            startActivity(intento);
+                            finish();
+                        }
+                        else {
+                            Toast.makeText(getApplicationContext(), "Login sin éxito", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 }

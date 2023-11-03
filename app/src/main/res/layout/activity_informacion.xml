@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".informacion"
+    tools:context=".Informacion"
     android:orientation="vertical">
 
     <LinearLayout
@@ -41,57 +41,63 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="496dp"
         android:layout_weight="1"
         android:orientation="vertical"
         android:paddingHorizontal="35dp"
         android:paddingVertical="20dp">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/nombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="40dp"
             android:text="Nachos"
+            android:textAlignment="center"
             android:textSize="26dp"
-            android:textStyle="bold"
-            android:textAlignment="center"/>
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/img1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#00FFFFFF"
-                android:contentDescription="aa"
-                app:srcCompat="@drawable/nachos_img" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <TextView
+                <ImageView
+                    android:id="@+id/imagen_platillo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Calorias: 118"
-                    android:layout_marginBottom="20dp"/>
+                    android:backgroundTint="#00FFFFFF"
+                    app:srcCompat="@drawable/nachos_img"
+                    android:contentDescription="imagen"  />
+
                 <TextView
+                    android:id="@+id/calorias"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Grasa 7.9g"
-                    android:layout_marginBottom="20dp"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Carbohidratos: 11.1g"
                     android:layout_marginBottom="20dp"
-                    />
+                    android:text="Calorias: 118" />
+
                 <TextView
+                    android:id="@+id/grasas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:text="Grasa 7.9g" />
+
+                <TextView
+                    android:id="@+id/carbohidratos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:text="Carbohidratos: 11.1g" />
+
+                <TextView
+                    android:id="@+id/proteinas"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Proteína: 1.2g" />
