@@ -19,7 +19,7 @@ import com.google.firebase.firestore.auth.FirebaseAuthCredentialsProvider;
 
 public class InicioSesion extends AppCompatActivity {
     EditText correo, contraseña;
-    FirebaseAuth mAuth;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

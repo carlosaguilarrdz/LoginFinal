@@ -27,7 +27,7 @@ public class crearCuenta extends AppCompatActivity {
     //Para bd
     EditText nombre, matricula, correo, telefono, contraseña;
     private FirebaseFirestore mfirestore;
-    FirebaseAuth mAuth;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

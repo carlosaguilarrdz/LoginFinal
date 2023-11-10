@@ -108,12 +108,21 @@ public class ConfigPerfil extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         mfirestore.collection("usuarios").document(uid).delete();
 
-                        // Muestra un mensaje de confirmación
-                        Toast.makeText(getApplicationContext(), "Cuenta eliminada", Toast.LENGTH_SHORT).show();
+                        mAuth.getCurrentUser().delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()) {
+                                    // Muestra un mensaje de confirmación
+                                    Toast.makeText(getApplicationContext(), "Cuenta eliminada", Toast.LENGTH_SHORT).show();
 
-                        // Regresa a la actividad de inicio de sesión
-                        Intent intento = new Intent(getApplicationContext(), LoginLayout.class);
-                        startActivity(intento);
+                                    // Regresa a la actividad de inicio de sesión
+                                    Intent intento = new Intent(getApplicationContext(), LoginLayout.class);
+                                    startActivity(intento);
+                                }
+                            }
+                        });
+
+
                     }
                 });
 
@@ -136,7 +145,6 @@ public class ConfigPerfil extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), "Usuario modificado", Toast.LENGTH_SHORT).show();
         Intent intento = new Intent(getApplicationContext(), MenuDashboard.class);
         startActivity(intento);
-        finish();
     }
 
 

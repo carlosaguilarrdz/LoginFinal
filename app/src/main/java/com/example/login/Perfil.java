@@ -23,9 +23,7 @@ public class Perfil extends AppCompatActivity {
     private FirebaseFirestore mfirestore;
     private FirebaseAuth mAuth;
     TextView nombre, matricula, telefono, correo, contraseña;
-
     String nombrea, matriculaa, telefonoa, correoa, contraseñaa,uid;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

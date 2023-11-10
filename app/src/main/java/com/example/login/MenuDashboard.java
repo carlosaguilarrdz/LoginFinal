@@ -26,9 +26,11 @@ import java.util.ArrayList;
 public class MenuDashboard extends AppCompatActivity implements RecyclerViewInterface{
     private FirebaseAuth mAuth;
     RecyclerView recyclerView;
-    FirebaseFirestore db;
+    private FirebaseFirestore mfirestore;
     Adapter adapter;
     ArrayList<Platillos> list;
+
+    String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +47,19 @@ public class MenuDashboard extends AppCompatActivity implements RecyclerViewInte
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
-        db = FirebaseFirestore.getInstance();
+        mfirestore = FirebaseFirestore.getInstance();
         list = new ArrayList<Platillos>();
         adapter = new Adapter(MenuDashboard.this, list, this);
         recyclerView.setAdapter(adapter);
+
+        mAuth = FirebaseAuth.getInstance();
+
+        if(mAuth.getCurrentUser() != null) {
+            uid = mAuth.getCurrentUser().getUid();
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "Usuario no logeado", Toast.LENGTH_SHORT).show();
+        }
 
         EventChangeListener();
 
@@ -88,7 +99,7 @@ public class MenuDashboard extends AppCompatActivity implements RecyclerViewInte
     }
 
     private void EventChangeListener() {
-        db.collection("Platillos").orderBy("nombre", Query.Direction.ASCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
+        mfirestore.collection("Platillos").orderBy("nombre", Query.Direction.ASCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 if(error != null) {
@@ -124,7 +135,6 @@ public class MenuDashboard extends AppCompatActivity implements RecyclerViewInte
         long grasas = list.get(position).getGrasas();
         String grasasCadena = String.valueOf(grasas);
         intento.putExtra("grasas", grasasCadena);
-
 
         long proteínas = list.get(position).getProteinas();
         String proteínasCadena = String.valueOf(proteínas);

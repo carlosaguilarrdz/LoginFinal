@@ -1,11 +1,10 @@
 package com.example.login;
 
-import android.widget.ImageView;
-
 public class Platillos {
 
     String nombre, img;
     long carbohidratos, grasas, proteinas, calorias;
+    
     public Platillos(){
 
     }
