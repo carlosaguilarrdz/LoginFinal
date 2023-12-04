@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,8 +23,8 @@ public class Perfil extends AppCompatActivity {
 
     private FirebaseFirestore mfirestore;
     private FirebaseAuth mAuth;
-    TextView nombre, matricula, telefono, correo, contraseña;
-    String nombrea, matriculaa, telefonoa, correoa, contraseñaa,uid;
+    TextView nombre, matricula, telefono, correo;
+    String nombrea, matriculaa, telefonoa, correoa,uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +33,16 @@ public class Perfil extends AppCompatActivity {
 
         Button config = findViewById(R.id.configBtn);
         Button cerrar = findViewById(R.id.exitBtn);
+        Button back = findViewById(R.id.returnbtn);
+
+        ImageButton casa = findViewById(R.id.btncasa);
+        ImageButton perfil = findViewById(R.id.btnperfil);
 
         nombre = findViewById(R.id.nombre);
         matricula = findViewById(R.id.matricula);
         correo = findViewById(R.id.correo);
         telefono = findViewById(R.id.telefono);
-        contraseña = findViewById(R.id.contraseña);
+
 
         mfirestore = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
@@ -49,6 +54,14 @@ public class Perfil extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Usuario no logeado", Toast.LENGTH_SHORT).show();
         }
 
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intento = new Intent(getApplicationContext(), MenuDashboard.class);
+                startActivity(intento);
+            }
+        });
+
         mfirestore.collection("usuarios").document(uid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -59,13 +72,11 @@ public class Perfil extends AppCompatActivity {
                         matriculaa = documentSnapshot.getString("matricula");
                         telefonoa = documentSnapshot.getString("telefono");
                         correoa = documentSnapshot.getString("correo");
-                        contraseñaa = documentSnapshot.getString("contraseña");
 
                         nombre.setText(nombrea);
                         matricula.setText(matriculaa);
                         correo.setText(correoa);
                         telefono.setText(telefonoa);
-                        contraseña.setText(contraseñaa);
                     }
                 }
 
@@ -91,6 +102,32 @@ public class Perfil extends AppCompatActivity {
                 mAuth.signOut();
                 Intent intento = new Intent(getApplicationContext(), LoginLayout.class);
                 startActivity(intento);
+            }
+        });
+
+        casa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intento1 = new Intent(getApplicationContext(), MenuDashboard.class);
+                startActivity(intento1);
+            }
+        });
+
+        perfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Verifica que el usuario esté autenticado
+                if (mAuth.getCurrentUser() != null) {
+                    // Crea un intent a la actividad perfil
+                    Intent intento3 = new Intent(getApplicationContext(), Perfil.class);
+
+                    // Inicia la actividad perfil
+                    startActivity(intento3);
+                } else {
+                    // El usuario no está autenticado
+                    // Muestra un mensaje de error
+                    Toast.makeText(getApplicationContext(), "Debes iniciar sesión para acceder a este contenido", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

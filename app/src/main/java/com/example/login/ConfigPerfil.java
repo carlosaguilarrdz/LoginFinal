@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -37,6 +38,10 @@ public class ConfigPerfil extends AppCompatActivity {
 
         Button guardar = findViewById(R.id.saveBtn);
         Button borrar = findViewById(R.id.deleteBtn);
+        Button back = findViewById(R.id.returnbtn);
+
+        ImageButton casa = findViewById(R.id.btncasa);
+        ImageButton perfil = findViewById(R.id.btnperfil);
 
         nombre = findViewById(R.id.nombre);
         matricula = findViewById(R.id.matricula);
@@ -51,6 +56,14 @@ public class ConfigPerfil extends AppCompatActivity {
         else {
             Toast.makeText(getApplicationContext(), "Usuario no logeado", Toast.LENGTH_SHORT).show();
         }
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intento = new Intent(getApplicationContext(), MenuDashboard.class);
+                startActivity(intento);
+            }
+        });
 
         mfirestore.collection("usuarios").document(uid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -128,6 +141,32 @@ public class ConfigPerfil extends AppCompatActivity {
 
                 AlertDialog dialog = builder.create();
                 dialog.show();
+            }
+        });
+
+        casa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intento1 = new Intent(getApplicationContext(), MenuDashboard.class);
+                startActivity(intento1);
+            }
+        });
+
+        perfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Verifica que el usuario esté autenticado
+                if (mAuth.getCurrentUser() != null) {
+                    // Crea un intent a la actividad perfil
+                    Intent intento3 = new Intent(getApplicationContext(), Perfil.class);
+
+                    // Inicia la actividad perfil
+                    startActivity(intento3);
+                } else {
+                    // El usuario no está autenticado
+                    // Muestra un mensaje de error
+                    Toast.makeText(getApplicationContext(), "Debes iniciar sesión para acceder a este contenido", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

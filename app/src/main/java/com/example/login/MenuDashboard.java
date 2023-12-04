@@ -37,9 +37,8 @@ public class MenuDashboard extends AppCompatActivity implements RecyclerViewInte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_dashboard);
 
-        ImageButton casa = findViewById(R.id.imageButton1);
-        ImageButton lupa = findViewById(R.id.imageButton3);
-        ImageButton perfil = findViewById(R.id.imageButton2);
+        ImageButton casa = findViewById(R.id.btncasa);
+        ImageButton perfil = findViewById(R.id.btnperfil);
         mAuth = FirebaseAuth.getInstance();
 
         recyclerView = findViewById(R.id.platillos_lista);
@@ -68,14 +67,6 @@ public class MenuDashboard extends AppCompatActivity implements RecyclerViewInte
             public void onClick(View view) {
                 Intent intento1 = new Intent(getApplicationContext(), MenuDashboard.class);
                 startActivity(intento1);
-            }
-        });
-
-        lupa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intento2 = new Intent(getApplicationContext(), Buscar_platillos.class);
-                startActivity(intento2);
             }
         });
 
